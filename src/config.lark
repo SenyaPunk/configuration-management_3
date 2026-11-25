@@ -1,0 +1,32 @@
+start: declaration* value?
+declaration: _VAR NAME ":=" value ";"
+
+?value: NUMBER                         -> number
+      | STRING                         -> string
+      | dictionary
+      | expression
+
+dictionary: "([" [entry ("," entry)* ","?] "])"
+entry: NAME ":" value
+
+?expression: "|" "+" operand operand "|"      -> add
+           | "|" "-" operand operand "|"      -> subtract
+           | "|" _POW operand operand "|"     -> power
+           | "|" _PRINT operand "|"           -> print_value
+
+?operand: value
+        | INTEGER                      -> number
+        | NAME                         -> reference
+
+_VAR: /var(?![a-z_0-9])/
+_POW: /pow(?![a-z_0-9])/
+_PRINT: /print(?![a-z_0-9])/
+NAME: /[a-z_]+(?![a-z_0-9])/
+NUMBER.1: /\d+\.\d*/
+INTEGER: /\d+/
+STRING.1: /q\([^)]*\)/
+COMMENT: /#=.*?=#/s
+
+%import common.WS
+%ignore WS
+%ignore COMMENT
