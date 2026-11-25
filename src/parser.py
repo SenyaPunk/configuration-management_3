@@ -1,4 +1,3 @@
-"""Parse the configuration language and locate syntax errors."""
 
 from pathlib import Path
 
@@ -14,15 +13,12 @@ PARSER = Lark(
 
 
 class ConfigError(ValueError):
-    """Report an error in the configuration source."""
 
     def __init__(self, line: int, column: int, message: str):
-        """Include the one-based source position in the diagnostic."""
         super().__init__(f"строка {line}, столбец {column}: {message}")
 
 
 def parse(source: str) -> Tree:
-    """Build a syntax tree or report the first unexpected input."""
     try:
         return PARSER.parse(source)
     except UnexpectedCharacters as error:

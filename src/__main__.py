@@ -1,4 +1,3 @@
-"""Read a configuration on stdin and write UTF-8 XML to stdout."""
 
 import argparse
 import sys
@@ -9,7 +8,6 @@ from .xml_output import format_printed, to_xml
 
 
 def main() -> int:
-    """Translate one document and report diagnostics on stderr."""
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
     cli = argparse.ArgumentParser(
