@@ -6,12 +6,37 @@
 
 ## Как запустить
 
-Нужен Python 3.10 или новее. Команды ниже запускаются из папки проекта в PowerShell.
+Нужен Python 3.10 или новее. Из папки проекта создайте окружение и установите
+зависимости.
 
-```powershell
+```bat
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-cmd /d /c 'run.bat < examples\web_service.cfg > result.xml'
+```
+
+В командной строке Windows (`cmd.exe`) эта команда покажет XML в консоли.
+
+```bat
+run.bat < examples\web_service.cfg
+```
+
+Чтобы записать XML в файл и посмотреть его, выполните эти две команды.
+
+```bat
+run.bat < examples\web_service.cfg > result.xml
+notepad result.xml
+```
+
+Для запуска напрямую через Python вместо `run.bat` используйте модуль `src`.
+
+```bat
+.\.venv\Scripts\python.exe -m src < examples\web_service.cfg
+```
+
+В PowerShell запуск с перенаправлением выглядит так.
+
+```powershell
+cmd /d /c 'run.bat < examples\web_service.cfg'
 ```
 
 На Linux и macOS команды для установки и запуска такие.
